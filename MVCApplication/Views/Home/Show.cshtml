@@ -1,0 +1,76 @@
+﻿@*@model MVCApplication.Models.UserOptions*@
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+@model MVCApplication.Models.UserModel
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+
+<select>
+    <option value="1">User Id</option>
+    <option value="2">Created Date</option>
+
+</select>
+<td>User id</td>
+<input type="text" id="userData" />
+<input type="button" value="submit" onclick="submit()" />
+<table class="table table-bordered">
+   
+</table>
+
+<input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel", "Home")'" />
+<script>
+    function submit() {
+        var inputData = $("#userData").val();
+        var object = {
+            "inputType": $("select").val(),
+            "information": inputData
+        }
+        console.log(object);
+        debugger;
+        $.ajax({
+            url: "/home/UserDetails",
+            type: "POST",
+            data: object,
+            success:
+                function (json) {
+                   
+                    var tr;
+
+                    var data=json;
+                    tr = $('<tr>');
+                    tr.append("<th>User ID</th>");
+                    tr.append("<th>Name</th>");
+                    tr.append("<th>email</th>");
+                    tr.append("<th>Phone</th>");
+                    tr.append("<th>Opar ID</th></tr>");
+                    $("table").append(tr);
+                    for (var i = 0; i < json.length; i++) {
+                         console.log(json[i]);
+                        tr = $('<tr>');
+               
+                    tr.append("<td>" + json[i]["userId"] + "</td>");
+                    tr.append("<td>" + json[i]["userName"] + "</td>");
+                    tr.append("<td>" + json[i]["eMail"] + "</td>");
+                    tr.append("<td>" + json[i]["phone"] + "</td>");
+                        tr.append("<td>" + json[i]["oparId"] + "</td>");
+                         $('table').append(tr);
+                    }
+                    
+
+                       
+                    //Append each row to html table
+                   
+                },
+            error: function (error) {
+                console.log("error");
+            }
+        })
+    }
+</script>

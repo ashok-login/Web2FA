@@ -1,0 +1,44 @@
+﻿@*@model MVCApplication.Models.UserOptions*@
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+@model MVCApplication.Models.UserModel
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@using(Html.BeginForm("UserDetails", "Home", FormMethod.Post))
+{
+<select>
+    <option value="1">User Id</option>
+    <option value="2">Created Date</option>
+
+</select>
+<td>User id</td>
+<input type="text" id="userData" />
+<input type="button" onclick="submit()" />
+<table cellpadding="0" cellspacing="0">
+    
+</table>
+}
+<input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel", "Home")'" />
+<script>
+    function submit() {
+        var inputData = $("#userData").val();
+        $.ajax({
+            url: "/home/UserDetails/" + inputData,
+            type: "POST",
+            success:
+                function (result) {
+                    console.log(result);
+                },
+            error: function (error) {
+                console.log("error");
+            }
+        })
+    }
+</script>
