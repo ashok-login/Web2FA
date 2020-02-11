@@ -27,11 +27,11 @@ namespace Web2FA.Utils
 				message.Subject = $"Your authentication code: {code}";
 				message.IsBodyHtml = true;
 				message.Body = $"Please use authentication code: {code} to authenticate yourself";
-				smtp.Port = 587; // MYTODO: Need to get this
-				smtp.Host = "owabud.epam.com"; //MYTODO: Need to get this
+				smtp.Port = 111; // TODO: Replace with the right one
+				smtp.Host = "abc.xyz.def"; //MYTODO: Replace with the right one.
 				smtp.EnableSsl = true;
 				smtp.UseDefaultCredentials = false;
-				smtp.Credentials = new NetworkCredential("ashok_kottagundu", _config["Password"]);
+				smtp.Credentials = new NetworkCredential("right_username", _config["Password"]);
 				smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
 				smtp.Send(message);
 			}
