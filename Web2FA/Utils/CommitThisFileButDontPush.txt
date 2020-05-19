@@ -1,5 +1,0 @@
-This file was created just for testing purpose.
-
-Committing this file, but not pushing to server.
-
-Later on, trying to remove the committed file without pushing to server.
